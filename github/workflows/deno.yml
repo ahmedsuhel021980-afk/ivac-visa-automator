@@ -1,0 +1,31 @@
+name: Deno Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Set up Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.x
+
+    - name: Verify Deno version
+      run: deno --version
+
+    - name: Install Dependencies / Check
+      run: deno cache main.ts || true
+
+    - name: Run Build / Test
+      run: |
+        echo "Running build process..."
+        # এখানে আপনার প্রজেক্টের বিল্ড কমান্ড যুক্ত করতে পারেন
